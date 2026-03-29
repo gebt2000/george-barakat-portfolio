@@ -7,7 +7,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type CursorVariant = "default" | "link" | "view" | "magnetic";
 
@@ -19,8 +19,16 @@ function readVariant(el: Element | null): CursorVariant {
   return "default";
 }
 
-/** Compact camera icon; lens center is at SVG center (20, 17) for hotspot alignment */
-function CameraIcon({ className }: { className?: string }) {
+const FLASH_IDLE_MS = 140;
+
+/** Compact camera icon; lens centered on pointer. Flash “fires” while the pointer is moving. */
+function CameraIcon({
+  className,
+  flashOn,
+}: {
+  className?: string;
+  flashOn: boolean;
+}) {
   return (
     <svg
       className={className}
@@ -75,14 +83,31 @@ function CameraIcon({ className }: { className?: string }) {
       {/* Lens glass */}
       <circle cx="22" cy="21" r="3.2" className="fill-white/25" />
       <circle cx="20.5" cy="19.5" r="1" className="fill-white/50" />
-      {/* Flash / detail */}
-      <rect
+      {/* Flash — bright while moving, dim when idle */}
+      <motion.rect
+        x="30.5"
+        y="12.5"
+        width="8"
+        height="6.5"
+        rx="1.5"
+        fill="#fff8e8"
+        initial={false}
+        animate={{ opacity: flashOn ? 0.5 : 0 }}
+        transition={{ duration: 0.1, ease: "easeOut" }}
+      />
+      <motion.rect
         x="32"
         y="14"
         width="5"
         height="3.5"
         rx="0.75"
-        className="fill-white/55"
+        initial={false}
+        animate={
+          flashOn
+            ? { fill: "#fffef5", opacity: 1 }
+            : { fill: "#5c5855", opacity: 0.4 }
+        }
+        transition={{ duration: 0.1, ease: "easeOut" }}
       />
       {/* Grip line */}
       <line
@@ -101,6 +126,8 @@ function CameraIcon({ className }: { className?: string }) {
 export function CustomCursor() {
   const [visible, setVisible] = useState(false);
   const [variant, setVariant] = useState<CursorVariant>("default");
+  const [flashOn, setFlashOn] = useState(false);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const cx = useMotionValue(-100);
   const cy = useMotionValue(-100);
@@ -109,14 +136,31 @@ export function CustomCursor() {
   const fastY = useSpring(cy, { stiffness: 520, damping: 38, mass: 0.35 });
 
   useEffect(() => {
+    const clearIdleTimer = () => {
+      if (idleTimerRef.current !== null) {
+        clearTimeout(idleTimerRef.current);
+        idleTimerRef.current = null;
+      }
+    };
+
     const onMove = (e: PointerEvent) => {
       cx.set(e.clientX);
       cy.set(e.clientY);
       setVisible(true);
       setVariant(readVariant(e.target as Element));
+      setFlashOn(true);
+      clearIdleTimer();
+      idleTimerRef.current = setTimeout(() => {
+        setFlashOn(false);
+        idleTimerRef.current = null;
+      }, FLASH_IDLE_MS);
     };
 
-    const onLeave = () => setVisible(false);
+    const onLeave = () => {
+      setVisible(false);
+      setFlashOn(false);
+      clearIdleTimer();
+    };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerleave", onLeave);
@@ -124,6 +168,7 @@ export function CustomCursor() {
     return () => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerleave", onLeave);
+      clearIdleTimer();
     };
   }, [cx, cy]);
 
@@ -150,7 +195,7 @@ export function CustomCursor() {
         animate={{ scale: camScale }}
         transition={{ type: "spring", stiffness: 480, damping: 32 }}
       >
-        <CameraIcon />
+        <CameraIcon flashOn={flashOn} />
       </motion.div>
 
       <AnimatePresence>
