@@ -24,8 +24,8 @@ export function HeroSection() {
               fill
               className="object-cover object-[center_25%] md:hidden"
               priority
-              quality={heroQuality}
               sizes="100vw"
+              unoptimized
             />
             <Image
               src={heroImageDesktop}
@@ -36,8 +36,16 @@ export function HeroSection() {
               quality={heroQuality}
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/22 via-black/14 to-black/32" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.12)_100%)]" />
+            {/* Dark treatment: base wash + vertical depth + edge vignette */}
+            <div className="absolute inset-0 bg-black/38" aria-hidden />
+            <div
+              className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/28 to-black/58"
+              aria-hidden
+            />
+            <div
+              className="absolute inset-0 bg-[radial-gradient(ellipse_85%_70%_at_50%_42%,transparent_0%,rgba(0,0,0,0.35)_72%,rgba(0,0,0,0.55)_100%)]"
+              aria-hidden
+            />
           </>
         ) : (
           <div className="h-full w-full bg-[#3d3835]" />
@@ -46,7 +54,7 @@ export function HeroSection() {
 
       <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-24 pt-[calc(var(--site-header-h)+2rem)] text-center text-white md:pt-[calc(var(--site-header-h)+2.5rem)]">
         <motion.h1
-          className="mt-5 font-[family-name:var(--font-wordmark)] text-[clamp(1.85rem,6.5vw,3.35rem)] font-extralight uppercase leading-[1.08] tracking-[0.12em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] min-[400px]:tracking-[0.16em] md:text-[clamp(2.15rem,5vw,3.75rem)] md:tracking-[0.18em]"
+          className="mt-5 font-[family-name:var(--font-wordmark)] text-[clamp(1.85rem,6.5vw,3.35rem)] font-extralight uppercase leading-[1.08] tracking-[0.12em] text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.55),0_1px_3px_rgba(0,0,0,0.9)] min-[400px]:tracking-[0.16em] md:text-[clamp(2.15rem,5vw,3.75rem)] md:tracking-[0.18em]"
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease, delay: 0.06 }}
@@ -54,7 +62,7 @@ export function HeroSection() {
           George Barakat
         </motion.h1>
         <motion.p
-          className="mt-6 max-w-xl px-1 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase leading-relaxed tracking-[0.32em] text-white/88 sm:text-[11px] sm:tracking-[0.38em]"
+          className="mt-6 max-w-xl px-1 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase leading-relaxed tracking-[0.32em] text-white/95 sm:text-[11px] sm:tracking-[0.38em] [text-shadow:0_2px_18px_rgba(0,0,0,0.5),0_1px_2px_rgba(0,0,0,0.85)]"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease, delay: 0.14 }}
@@ -62,7 +70,7 @@ export function HeroSection() {
           Portrait, event, travel &amp; street photography
         </motion.p>
         <motion.p
-          className="mt-4 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.3em] text-white/58"
+          className="mt-4 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.3em] text-white/78 [text-shadow:0_1px_12px_rgba(0,0,0,0.55)]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.22 }}
@@ -80,7 +88,7 @@ export function HeroSection() {
             <Link
               href="/portfolio"
               data-cursor="magnetic"
-              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/35 bg-white/10 px-8 py-3 text-sm font-medium tracking-wide text-white backdrop-blur-sm transition hover:bg-white/20"
+              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/45 bg-black/25 px-8 py-3 text-sm font-medium tracking-wide text-white shadow-[0_4px_24px_rgba(0,0,0,0.35)] backdrop-blur-sm transition hover:border-white/55 hover:bg-black/35"
             >
               View portfolio
             </Link>
@@ -89,7 +97,7 @@ export function HeroSection() {
             <Link
               href="/contact"
               data-cursor="magnetic"
-              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/25 bg-transparent px-8 py-3 text-sm font-medium tracking-wide text-white transition hover:bg-white/10"
+              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/40 bg-black/15 px-8 py-3 text-sm font-medium tracking-wide text-white shadow-[0_4px_20px_rgba(0,0,0,0.3)] backdrop-blur-sm transition hover:border-white/50 hover:bg-black/25"
             >
               Get in touch
             </Link>
@@ -97,7 +105,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.38em] text-white/50">
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.38em] text-white/70 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
         Scroll
       </div>
     </section>
