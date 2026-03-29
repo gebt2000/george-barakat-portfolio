@@ -107,8 +107,6 @@ export function CustomCursor() {
 
   const fastX = useSpring(cx, { stiffness: 520, damping: 38, mass: 0.35 });
   const fastY = useSpring(cy, { stiffness: 520, damping: 38, mass: 0.35 });
-  const slowX = useSpring(cx, { stiffness: 120, damping: 20, mass: 0.85 });
-  const slowY = useSpring(cy, { stiffness: 120, damping: 20, mass: 0.85 });
 
   useEffect(() => {
     const onMove = (e: PointerEvent) => {
@@ -145,37 +143,7 @@ export function CustomCursor() {
       animate={{ opacity: visible ? 1 : 0 }}
       transition={{ duration: 0.2 }}
     >
-      {/* Lagging focus ring — viewfinder feel */}
-      <motion.div
-        className="fixed left-0 top-0 -translate-x-1/2 -translate-y-1/2"
-        style={{ x: slowX, y: slowY }}
-        animate={{ scale: camScale }}
-        transition={{ type: "spring", stiffness: 380, damping: 26 }}
-      >
-        <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden>
-          <circle
-            cx="28"
-            cy="28"
-            r="22"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeDasharray="5 6"
-            className="text-[#141210]/20"
-          />
-          <circle
-            cx="28"
-            cy="28"
-            r="26"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="0.75"
-            className="text-[#141210]/10"
-          />
-        </svg>
-      </motion.div>
-
-      {/* Camera body — snaps to pointer; lens centered on cursor */}
+      {/* Camera — lens centered on pointer */}
       <motion.div
         className="fixed left-0 top-0 -translate-x-1/2 -translate-y-1/2 drop-shadow-[0_4px_14px_rgba(20,18,16,0.18)]"
         style={{ x: fastX, y: fastY }}
