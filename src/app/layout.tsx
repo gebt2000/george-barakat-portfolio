@@ -4,6 +4,7 @@ import {
   Geist,
   Geist_Mono,
   Instrument_Serif,
+  Montserrat,
 } from "next/font/google";
 import { InteractiveShell } from "@/components/providers/InteractiveShell";
 import "./globals.css";
@@ -33,6 +34,14 @@ const displaySerif = Instrument_Serif({
   display: "swap",
 });
 
+/** Morgan-style header logotype: thin geometric sans + wide tracking */
+const wordmarkSans = Montserrat({
+  variable: "--font-wordmark",
+  subsets: ["latin"],
+  weight: "200",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: {
     default: "George Barakat — Photography",
@@ -51,7 +60,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${brandSerif.variable} ${displaySerif.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${brandSerif.variable} ${displaySerif.variable} ${wordmarkSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <div className="gb-bg" aria-hidden="true" />

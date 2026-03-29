@@ -115,7 +115,7 @@ export function Header(props: { className?: string }) {
           >
             <span
               className={cn(
-                "block font-[family-name:var(--font-display)] text-lg font-normal tracking-[-0.02em]",
+                "block text-center font-[family-name:var(--font-wordmark)] text-[11px] font-extralight uppercase leading-tight tracking-[0.16em] sm:text-sm sm:tracking-[0.24em]",
                 overHero ? "text-white drop-shadow-md" : "text-[var(--foreground)]",
               )}
             >
@@ -156,7 +156,7 @@ export function Header(props: { className?: string }) {
             <Link href="/" data-cursor="link" className="group block">
               <span
                 className={cn(
-                  "block font-[family-name:var(--font-display)] text-[1.35rem] font-normal tracking-[-0.02em] transition md:text-[1.5rem]",
+                  "block font-[family-name:var(--font-wordmark)] text-[clamp(0.8rem,2.2vw,1.35rem)] font-extralight uppercase leading-none tracking-[0.22em] transition md:tracking-[0.26em]",
                   overHero
                     ? "text-white drop-shadow-md group-hover:text-white/90"
                     : "text-[var(--foreground)] group-hover:opacity-80",
