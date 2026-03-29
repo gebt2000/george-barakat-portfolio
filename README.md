@@ -1,3 +1,34 @@
+# Photography Portfolio (Next.js)
+
+Bold, gallery-first photography portfolio with filtering, lightbox navigation, and a contact form (Resend).
+
+## Run locally
+
+```bash
+cd portfolio
+cp .env.example .env.local
+npm run dev
+```
+
+## Configure contact form (Resend)
+
+- Create a Resend account and generate an API key
+- Set these in `.env.local`:
+  - `RESEND_API_KEY`
+  - `CONTACT_TO_EMAIL`
+  - Optional: `CONTACT_FROM_EMAIL` (recommended for production; must be verified in Resend)
+
+## Deploy
+
+- Recommended: Vercel
+- After deploy, set `NEXT_PUBLIC_SITE_URL` to your production domain.
+
+## Add your photos
+
+Edit `src/content/photos.ts`:
+- Replace `src` URLs with your own (local in `public/` or a CDN)
+- Update titles, years, categories
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

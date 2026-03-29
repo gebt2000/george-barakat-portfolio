@@ -1,26 +1,97 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f2efe8;
+  --foreground: #141210;
+  --muted: rgba(20, 18, 16, 0.58);
+  --card: rgba(255, 255, 255, 0.72);
+  --card-border: rgba(20, 18, 16, 0.08);
+  --focus: rgba(20, 18, 16, 0.22);
+  --accent: #6b5344;
+  --accent2: #3d5a62;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-card-border: var(--card-border);
+  --color-focus: var(--focus);
+  --color-accent: var(--accent);
+  --color-accent2: var(--accent2);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+    Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+@media (pointer: fine) {
+  html.has-custom-cursor body {
+    cursor: none;
+  }
+}
+
+::selection {
+  background: color-mix(in oklab, var(--accent) 22%, transparent);
+}
+
+/* Warm paper field — editorial / Pixieset-adjacent, not a template clone */
+.gb-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+      900px 520px at 12% 0%,
+      color-mix(in oklab, #fff 70%, var(--background)),
+      transparent 55%
+    ),
+    radial-gradient(
+      700px 480px at 92% 8%,
+      color-mix(in oklab, var(--accent2) 12%, transparent),
+      transparent 58%
+    ),
+    radial-gradient(
+      620px 420px at 55% 95%,
+      color-mix(in oklab, var(--accent) 10%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #faf8f4 0%, var(--background) 38%, #ebe6dc 100%);
+}
+
+.gb-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    120% 80% at 50% 0%,
+    transparent 40%,
+    color-mix(in oklab, var(--foreground) 6%, transparent) 100%
+  );
+  pointer-events: none;
+}
+
+.gb-noise {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='.75'/%3E%3C/svg%3E");
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis {
+  overflow-x: hidden;
 }
