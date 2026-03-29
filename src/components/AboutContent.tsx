@@ -77,10 +77,10 @@ export function AboutContent() {
         <div className="lg:sticky lg:top-28">
           <div className="relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-sm shadow-[0_24px_60px_rgba(20,18,16,0.12)]">
             <Image
-              src="/george-barakat-portrait.png"
-              alt="George Barakat"
+              src="/images/about-portrait.jpg"
+              alt="Black and white portrait of George Barakat"
               fill
-              className="object-cover object-[center_14%]"
+              className="object-cover object-center"
               sizes="(max-width: 1024px) 100vw, 420px"
               priority
             />
