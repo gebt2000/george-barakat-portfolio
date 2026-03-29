@@ -3,12 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { photos } from "@/content/photos";
+import { selectedWorksPreview } from "@/content/photos";
 import { Magnetic } from "@/components/Magnetic";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const preview = photos.slice(0, 4);
+const preview = selectedWorksPreview;
 
 export function SelectedWorks() {
   return (

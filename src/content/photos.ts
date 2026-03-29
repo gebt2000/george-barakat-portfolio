@@ -12,6 +12,46 @@ export type Photo = {
   location?: string;
 };
 
+/** Home page “Selected works” grid only (does not change portfolio order). */
+export const selectedWorksPreview: Photo[] = [
+  {
+    id: "sw-001",
+    title: "Winter coast",
+    subtitle: "Celebration",
+    year: "2025",
+    category: "Events",
+    src: "/images/selected/selected-01.jpg",
+    alt: "Couple on a winter beach; engagement ring on a raised hand in focus",
+  },
+  {
+    id: "sw-002",
+    title: "Golden hour",
+    subtitle: "Portrait",
+    year: "2025",
+    category: "Travel",
+    src: "/images/selected/selected-02.jpg",
+    alt: "Woman in an orange dress at dusk with a hot air balloon in the background",
+  },
+  {
+    id: "sw-003",
+    title: "Cellar light",
+    subtitle: "Together",
+    year: "2024",
+    category: "Events",
+    src: "/images/selected/selected-03.jpg",
+    alt: "Couple with wine glasses in a barrel room, warm low light",
+  },
+  {
+    id: "sw-004",
+    title: "City rhythm",
+    subtitle: "Street",
+    year: "2024",
+    category: "Street",
+    src: "/images/selected/selected-04.jpg",
+    alt: "Cyclist crossing a city crosswalk in racing kit",
+  },
+];
+
 // Replace with your own images (local `public/` or CDN). Unsplash placeholders.
 export const photos: Photo[] = [
   {

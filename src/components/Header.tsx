@@ -115,7 +115,7 @@ export function Header(props: { className?: string }) {
           >
             <span
               className={cn(
-                "block text-center font-[family-name:var(--font-wordmark)] text-[11px] font-extralight uppercase leading-tight tracking-[0.16em] sm:text-sm sm:tracking-[0.24em]",
+                "block text-center font-[family-name:var(--font-wordmark)] text-lg font-extralight uppercase leading-tight tracking-[0.1em] sm:text-xl sm:tracking-[0.14em]",
                 overHero ? "text-white drop-shadow-md" : "text-[var(--foreground)]",
               )}
             >
@@ -187,15 +187,19 @@ export function Header(props: { className?: string }) {
           </nav>
         </div>
 
-        {/* Mobile overlay */}
+        {/* Mobile overlay: backdrop is never opacity-animated (that made the sheet look transparent). */}
         <div
           className={cn(
-            "fixed inset-0 z-[61] flex flex-col bg-[var(--background)] pt-24 transition-opacity duration-300 md:hidden",
-            open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+            "fixed inset-0 z-[61] flex min-h-dvh flex-col md:hidden",
+            open ? "pointer-events-auto" : "pointer-events-none invisible",
           )}
           aria-hidden={!open}
         >
-          <nav className="flex flex-col items-center gap-8 px-8 py-12">
+          <div
+            className="absolute inset-0 bg-[var(--background)]"
+            aria-hidden
+          />
+          <nav className="relative flex flex-1 flex-col items-center justify-center gap-8 px-8 py-12 pt-24">
             {[...LEFT_NAV, ...RIGHT_NAV].map((item) => (
               <Link
                 key={item.href}
@@ -215,7 +219,7 @@ export function Header(props: { className?: string }) {
               </Link>
             ))}
           </nav>
-          <p className="mt-auto px-8 pb-10 text-center text-[10px] uppercase tracking-[0.28em] text-[var(--foreground)]/35">
+          <p className="relative shrink-0 px-8 pb-10 pt-4 text-center text-[10px] uppercase tracking-[0.28em] text-[var(--foreground)]/35">
             Toronto, Ontario
           </p>
         </div>
