@@ -8,7 +8,7 @@ export function Header(props: { className?: string }) {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 border-b border-[var(--foreground)]/8 bg-[color-mix(in_oklab,var(--background)_78%,#fff_22%)] backdrop-blur-md supports-[backdrop-filter]:bg-[color-mix(in_oklab,var(--background)_65%,#fff_35%)]",
+        "sticky top-0 z-50 border-b border-[var(--foreground)]/8 bg-[color-mix(in_oklab,var(--background)_82%,#fff_18%)]/90 backdrop-blur-md",
         props.className,
       )}
     >
@@ -32,36 +32,29 @@ export function Header(props: { className?: string }) {
           </span>
         </Link>
 
-        <nav className="flex shrink-0 items-center gap-1 text-sm md:gap-2">
-          <a
-            href="#portfolio"
+        <nav className="flex shrink-0 items-center gap-1 text-sm md:gap-3">
+          <Link
+            href="/portfolio"
             data-cursor="link"
             className="rounded-full px-2.5 py-2 text-[var(--foreground)]/55 transition hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20 md:px-3"
           >
             Portfolio
-          </a>
-          <a
-            href="#philosophy"
-            data-cursor="link"
-            className="hidden rounded-full px-3 py-2 text-[var(--foreground)]/55 transition hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20 sm:inline-flex"
-          >
-            Approach
-          </a>
-          <a
-            href="#about"
+          </Link>
+          <Link
+            href="/about"
             data-cursor="link"
             className="rounded-full px-2.5 py-2 text-[var(--foreground)]/55 transition hover:text-[var(--foreground)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20 md:px-3"
           >
             About
-          </a>
+          </Link>
           <Magnetic strength={0.22}>
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               data-cursor="magnetic"
               className="rounded-full border border-[var(--foreground)]/12 bg-[var(--card)] px-3 py-2 text-[var(--foreground)]/85 shadow-sm transition hover:border-[var(--foreground)]/18 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20"
             >
               Contact
-            </a>
+            </Link>
           </Magnetic>
         </nav>
       </div>

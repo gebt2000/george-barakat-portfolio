@@ -9,9 +9,20 @@ type FormState =
   | { status: "success" }
   | { status: "error"; message: string };
 
-export function ContactForm() {
+type ContactFormProps = {
+  /** Extra field for routing inquiries (hidden on dedicated contact page) */
+  showCategory?: boolean;
+  /** Morgan-style: minimal header inside card */
+  compactHeading?: boolean;
+};
+
+export function ContactForm({
+  showCategory = true,
+  compactHeading = false,
+}: ContactFormProps) {
   const [state, setState] = useState<FormState>({ status: "idle" });
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [category, setCategory] = useState<
@@ -20,12 +31,13 @@ export function ContactForm() {
 
   const canSubmit = useMemo(() => {
     return (
-      name.trim().length >= 2 &&
+      firstName.trim().length >= 1 &&
+      lastName.trim().length >= 1 &&
       email.includes("@") &&
       message.trim().length >= 10 &&
       state.status !== "sending"
     );
-  }, [email, message, name, state.status]);
+  }, [email, firstName, lastName, message, state.status]);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -35,7 +47,13 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ name, email, message, category }),
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          message,
+          ...(showCategory ? { category } : { category: "General" }),
+        }),
       });
       const data = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
@@ -45,7 +63,8 @@ export function ContactForm() {
         throw new Error(data.error || "Something went wrong.");
       }
       setState({ status: "success" });
-      setName("");
+      setFirstName("");
+      setLastName("");
       setEmail("");
       setMessage("");
       setCategory("Portraits");
@@ -60,26 +79,42 @@ export function ContactForm() {
       onSubmit={onSubmit}
       className="rounded-3xl border border-[var(--foreground)]/10 bg-[var(--card)] p-5 shadow-[0_1px_0_rgba(255,255,255,0.65)_inset,0_20px_50px_rgba(20,18,16,0.06)] md:p-6"
     >
-      <div className="flex flex-col gap-1">
-        <p className="font-[family-name:var(--font-display)] text-lg font-normal tracking-[-0.02em] text-[var(--foreground)]">
-          Send a note
-        </p>
-        <p className="text-sm text-[var(--foreground)]/55">
-          Tell me what you’re planning and I’ll reply quickly.
-        </p>
-      </div>
+      {!compactHeading ? (
+        <div className="flex flex-col gap-1">
+          <p className="font-[family-name:var(--font-display)] text-lg font-normal tracking-[-0.02em] text-[var(--foreground)]">
+            Send a note
+          </p>
+          <p className="text-sm text-[var(--foreground)]/55">
+            Tell me what you’re planning and I’ll reply quickly.
+          </p>
+        </div>
+      ) : null}
 
-      <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2">
-        <Field label="Name">
+      <div
+        className={cn(
+          "grid grid-cols-1 gap-3 md:grid-cols-2",
+          !compactHeading && "mt-5",
+        )}
+      >
+        <Field label="First name" requiredMark>
           <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             className={inputClass}
-            placeholder="Your name"
-            autoComplete="name"
+            placeholder="First name"
+            autoComplete="given-name"
           />
         </Field>
-        <Field label="Email">
+        <Field label="Last name" requiredMark>
+          <input
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            className={inputClass}
+            placeholder="Last name"
+            autoComplete="family-name"
+          />
+        </Field>
+        <Field label="Email" requiredMark className="md:col-span-2">
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -89,27 +124,29 @@ export function ContactForm() {
             inputMode="email"
           />
         </Field>
-        <Field label="Category">
-          <select
-            value={category}
-            onChange={(e) =>
-              setCategory(e.target.value as typeof category)
-            }
-            className={inputClass}
-          >
-            <option>Portraits</option>
-            <option>Events</option>
-            <option>Travel</option>
-            <option>Street</option>
-            <option>Other</option>
-          </select>
-        </Field>
-        <Field label="Message" className="md:col-span-2">
+        {showCategory ? (
+          <Field label="Category" className="md:col-span-2">
+            <select
+              value={category}
+              onChange={(e) =>
+                setCategory(e.target.value as typeof category)
+              }
+              className={inputClass}
+            >
+              <option>Portraits</option>
+              <option>Events</option>
+              <option>Travel</option>
+              <option>Street</option>
+              <option>Other</option>
+            </select>
+          </Field>
+        ) : null}
+        <Field label="Message" requiredMark className="md:col-span-2">
           <textarea
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className={cn(inputClass, "min-h-[120px] resize-y")}
-            placeholder="What are you looking for? Dates, location, vibe, deliverables…"
+            className={cn(inputClass, "min-h-[140px] resize-y")}
+            placeholder="Tell me about your date, location, and what you’re hoping for…"
           />
         </Field>
       </div>
@@ -129,7 +166,7 @@ export function ContactForm() {
           data-cursor="link"
           disabled={!canSubmit}
           className={cn(
-            "inline-flex items-center justify-center rounded-full border px-5 py-2 text-sm font-medium transition",
+            "inline-flex items-center justify-center rounded-sm border px-6 py-2.5 text-sm font-medium tracking-wide transition",
             "border-[var(--foreground)]/14 bg-[var(--foreground)] text-[#f4f1eb] hover:bg-[var(--foreground)]/90",
             "disabled:cursor-not-allowed disabled:opacity-50",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20",
@@ -144,13 +181,19 @@ export function ContactForm() {
 
 function Field(props: {
   label: string;
+  requiredMark?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
   return (
     <label className={cn("flex flex-col gap-2", props.className)}>
-      <span className="text-xs font-mono tracking-[0.22em] text-[var(--foreground)]/45">
-        {props.label.toUpperCase()}
+      <span className="flex items-baseline gap-1 text-xs font-mono tracking-[0.18em] text-[var(--foreground)]/45">
+        <span>{props.label.toUpperCase()}</span>
+        {props.requiredMark ? (
+          <span className="text-[var(--foreground)]/35" aria-hidden>
+            *
+          </span>
+        ) : null}
       </span>
       {props.children}
     </label>
@@ -158,4 +201,4 @@ function Field(props: {
 }
 
 const inputClass =
-  "w-full rounded-2xl border border-[var(--foreground)]/10 bg-white/80 px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--foreground)]/35 outline-none transition focus:border-[var(--foreground)]/22 focus:ring-2 focus:ring-[var(--foreground)]/10";
+  "w-full rounded-sm border border-[var(--foreground)]/12 bg-white/90 px-4 py-3 text-sm text-[var(--foreground)] placeholder:text-[var(--foreground)]/35 outline-none transition focus:border-[var(--foreground)]/25 focus:ring-1 focus:ring-[var(--foreground)]/15";

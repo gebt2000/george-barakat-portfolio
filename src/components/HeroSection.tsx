@@ -1,114 +1,92 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { GeorgeBarakatWordmark } from "@/components/GeorgeBarakatWordmark";
+import { photos } from "@/content/photos";
 import { Magnetic } from "@/components/Magnetic";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const heroImage = photos[0]?.src;
+
 export function HeroSection() {
   return (
-    <section className="relative min-h-[min(100dvh,920px)]">
-      <div
-        className="pointer-events-none absolute right-[8%] top-[18%] hidden font-[family-name:var(--font-display)] text-[clamp(8rem,22vw,14rem)] font-normal leading-none text-[var(--foreground)]/[0.04] lg:block"
-        aria-hidden
-      >
-        G
+    <section className="relative min-h-dvh">
+      <div className="absolute inset-0">
+        {heroImage ? (
+          <>
+            <Image
+              src={heroImage}
+              alt=""
+              fill
+              className="object-cover"
+              priority
+              sizes="100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.25)_100%)]" />
+          </>
+        ) : (
+          <div className="h-full w-full bg-[#3d3835]" />
+        )}
       </div>
 
-      <div className="mx-auto flex min-h-[min(100dvh,920px)] max-w-6xl flex-col gap-10 px-5 pb-16 pt-10 md:flex-row md:items-stretch md:gap-12 md:px-8 md:pb-20 md:pt-14">
-        <div className="flex flex-1 flex-col justify-center">
-          <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease }}
-          >
-            <GeorgeBarakatWordmark />
-          </motion.div>
-
-          <motion.p
-            className="mt-6 max-w-md font-[family-name:var(--font-display)] text-xl font-normal italic leading-snug tracking-[-0.01em] text-[var(--foreground)]/70 md:text-2xl"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease, delay: 0.12 }}
-          >
-            Subtle frames. Bold feeling.
-          </motion.p>
-
-          <motion.p
-            className="mt-4 max-w-lg text-sm leading-7 text-[var(--foreground)]/55"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease, delay: 0.2 }}
-          >
-            Toronto-based photography for people who want work that feels
-            editorial—honest, refined, and unmistakably yours.
-          </motion.p>
-
-          <motion.div
-            className="mt-8 flex flex-wrap gap-3"
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease, delay: 0.28 }}
-          >
-            <Magnetic>
-              <a
-                href="#portfolio"
-                data-cursor="magnetic"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--foreground)]/15 bg-[var(--foreground)] px-6 py-2.5 text-sm font-medium text-[#f4f1eb] shadow-sm transition hover:bg-[var(--foreground)]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/25"
-              >
-                View selected work
-              </a>
-            </Magnetic>
-            <Magnetic>
-              <a
-                href="#contact"
-                data-cursor="magnetic"
-                className="inline-flex items-center justify-center rounded-full border border-[var(--foreground)]/12 bg-[var(--card)] px-6 py-2.5 text-sm font-medium text-[var(--foreground)]/85 shadow-sm transition hover:border-[var(--foreground)]/18 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--foreground)]/20"
-              >
-                Get in touch
-              </a>
-            </Magnetic>
-          </motion.div>
-        </div>
+      <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-24 pt-28 text-center text-white">
+        <motion.h1
+          className="mt-5 font-[family-name:var(--font-display)] text-[clamp(2.75rem,10vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]"
+          initial={{ opacity: 0, y: 22 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, ease, delay: 0.06 }}
+        >
+          George Barakat
+        </motion.h1>
+        <motion.p
+          className="mt-5 max-w-xl font-[family-name:var(--font-display)] text-xl font-normal italic leading-snug text-white/92 md:text-2xl"
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.85, ease, delay: 0.14 }}
+        >
+          Portrait, event, travel &amp; street photography
+        </motion.p>
+        <motion.p
+          className="mt-3 text-[11px] uppercase tracking-[0.28em] text-white/65"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.7, delay: 0.22 }}
+        >
+          Toronto, Ontario
+        </motion.p>
 
         <motion.div
-          className="relative flex flex-1 items-center md:max-w-md md:flex-none lg:max-w-lg"
-          initial={{ opacity: 0, scale: 0.97, y: 16 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.95, ease, delay: 0.1 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease, delay: 0.28 }}
         >
-          <div className="relative w-full">
-            <div className="absolute -inset-3 rounded-[28px] bg-gradient-to-br from-[var(--accent)]/12 via-transparent to-[var(--accent2)]/10 blur-2xl" />
-            <div className="relative overflow-hidden rounded-[26px] border border-[var(--foreground)]/10 bg-white p-2 shadow-[0_28px_80px_rgba(20,18,16,0.12)]">
-              <div className="relative aspect-[3/4] overflow-hidden rounded-[20px]">
-                <Image
-                  src="/george-barakat-portrait.png"
-                  alt="George Barakat, photographer in Toronto"
-                  fill
-                  className="object-cover object-[center_14%]"
-                  sizes="(max-width: 768px) 100vw, 420px"
-                  priority
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--foreground)]/25 via-transparent to-transparent" />
-              </div>
-              <div className="flex items-center justify-between gap-3 border-t border-[var(--foreground)]/8 px-4 py-3">
-                <div>
-                  <p className="text-[10px] font-mono uppercase tracking-[0.22em] text-[var(--foreground)]/40">
-                    Toronto, ON
-                  </p>
-                  <p className="mt-1 font-[family-name:var(--font-display)] text-sm italic text-[var(--foreground)]/75">
-                    George Barakat
-                  </p>
-                </div>
-                <span className="rounded-full border border-[var(--foreground)]/10 bg-[var(--background)]/80 px-2.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-[var(--foreground)]/45">
-                  Open
-                </span>
-              </div>
-            </div>
-          </div>
+          <Magnetic strength={0.24}>
+            <Link
+              href="/portfolio"
+              data-cursor="magnetic"
+              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/35 bg-white/10 px-8 py-3 text-sm font-medium tracking-wide text-white backdrop-blur-sm transition hover:bg-white/20"
+            >
+              View portfolio
+            </Link>
+          </Magnetic>
+          <Magnetic strength={0.24}>
+            <Link
+              href="/contact"
+              data-cursor="magnetic"
+              className="inline-flex min-w-[10rem] items-center justify-center rounded-sm border border-white/25 bg-transparent px-8 py-3 text-sm font-medium tracking-wide text-white transition hover:bg-white/10"
+            >
+              Get in touch
+            </Link>
+          </Magnetic>
         </motion.div>
+      </div>
+
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-white/50">
+        Scroll
       </div>
     </section>
   );

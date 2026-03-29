@@ -14,7 +14,12 @@ function slugifyCategory(c: PhotoCategory) {
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Gallery() {
+type GalleryProps = {
+  /** Morgan-style portfolio page header */
+  variant?: "default" | "portfolio";
+};
+
+export function Gallery({ variant = "default" }: GalleryProps) {
   const [active, setActive] = useState<PhotoCategory | "All">("All");
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -29,38 +34,105 @@ export function Gallery() {
   );
   const openPhoto = filtered[openIndex];
 
+  const isPortfolio = variant === "portfolio";
+
   return (
-    <section id="portfolio" className="mx-auto w-full max-w-6xl px-5 md:px-8">
+    <section
+      id={isPortfolio ? "gallery" : "portfolio"}
+      className="mx-auto w-full max-w-6xl px-5 md:px-8"
+    >
       <motion.div
-        className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+        className={
+          isPortfolio
+            ? "flex flex-col items-center gap-6 text-center"
+            : "flex flex-col gap-4 md:flex-row md:items-end md:justify-between"
+        }
         initial={{ opacity: 0, y: 22 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.7, ease }}
       >
-        <div>
-          <p className="text-xs font-mono tracking-[0.28em] text-[var(--foreground)]/45">
-            PORTFOLIO
-          </p>
-          <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl font-normal tracking-[-0.02em] text-[var(--foreground)] md:text-3xl">
-            Selected works
-          </h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--foreground)]/55">
-            A curated edit—hover for depth, click to view full frame. Filter by
-            the kind of story you want to see.
-          </p>
+        <div className={isPortfolio ? "max-w-2xl" : ""}>
+          {isPortfolio ? (
+            <>
+              <h2 className="font-[family-name:var(--font-display)] text-[clamp(1.85rem,4vw,2.5rem)] font-normal tracking-[-0.02em] text-[var(--foreground)]">
+                My portfolio
+              </h2>
+              <p className="mt-3 text-xs font-mono tracking-[0.32em] text-[var(--foreground)]/45">
+                COLLECTION OF STORIES · SINCE 2018
+              </p>
+              <p className="mt-6 text-sm leading-7 text-[var(--foreground)]/58">
+                My favourite frames are often unstaged and effortless—it&apos;s
+                the in-between moments where the real magic happens.
+              </p>
+            </>
+          ) : (
+            <>
+              <p className="text-xs font-mono tracking-[0.28em] text-[var(--foreground)]/45">
+                PORTFOLIO
+              </p>
+              <h2 className="mt-2 font-[family-name:var(--font-display)] text-2xl font-normal tracking-[-0.02em] text-[var(--foreground)] md:text-3xl">
+                Selected works
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--foreground)]/55">
+                A curated edit—hover for depth, click to view full frame. Filter
+                by the kind of story you want to see.
+              </p>
+            </>
+          )}
         </div>
 
-        <div className="flex flex-wrap gap-2">
+        {!isPortfolio ? (
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              data-cursor="link"
+              onClick={() => setActive("All")}
+              className={cn(
+                "rounded-full border px-3 py-2 text-sm transition",
+                active === "All"
+                  ? "border-[var(--foreground)]/18 bg-[var(--foreground)] text-[#f4f1eb] shadow-sm"
+                  : "border-[var(--foreground)]/10 bg-[var(--card)] text-[var(--foreground)]/65 hover:border-[var(--foreground)]/16 hover:text-[var(--foreground)]",
+              )}
+            >
+              All
+            </button>
+            {categories.map((c) => (
+              <button
+                key={c}
+                type="button"
+                data-cursor="link"
+                onClick={() => setActive(c)}
+                className={cn(
+                  "rounded-full border px-3 py-2 text-sm transition",
+                  active === c
+                    ? "border-[var(--foreground)]/18 bg-[var(--foreground)] text-[#f4f1eb] shadow-sm"
+                    : "border-[var(--foreground)]/10 bg-[var(--card)] text-[var(--foreground)]/65 hover:border-[var(--foreground)]/16 hover:text-[var(--foreground)]",
+                )}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        ) : null}
+      </motion.div>
+
+      {isPortfolio ? (
+        <motion.div
+          className="mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-4 border-y border-[var(--foreground)]/10 py-10 font-[family-name:var(--font-display)] text-lg text-[var(--foreground)]/55 md:gap-x-12 md:text-xl"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease }}
+        >
           <button
             type="button"
             data-cursor="link"
             onClick={() => setActive("All")}
             className={cn(
-              "rounded-full border px-3 py-2 text-sm transition",
-              active === "All"
-                ? "border-[var(--foreground)]/18 bg-[var(--foreground)] text-[#f4f1eb] shadow-sm"
-                : "border-[var(--foreground)]/10 bg-[var(--card)] text-[var(--foreground)]/65 hover:border-[var(--foreground)]/16 hover:text-[var(--foreground)]",
+              "transition hover:text-[var(--foreground)]",
+              active === "All" &&
+                "text-[var(--foreground)] underline decoration-[var(--foreground)]/35 underline-offset-[10px]",
             )}
           >
             All
@@ -72,17 +144,16 @@ export function Gallery() {
               data-cursor="link"
               onClick={() => setActive(c)}
               className={cn(
-                "rounded-full border px-3 py-2 text-sm transition",
-                active === c
-                  ? "border-[var(--foreground)]/18 bg-[var(--foreground)] text-[#f4f1eb] shadow-sm"
-                  : "border-[var(--foreground)]/10 bg-[var(--card)] text-[var(--foreground)]/65 hover:border-[var(--foreground)]/16 hover:text-[var(--foreground)]",
+                "transition hover:text-[var(--foreground)]",
+                active === c &&
+                  "text-[var(--foreground)] underline decoration-[var(--foreground)]/35 underline-offset-[10px]",
               )}
             >
               {c}
             </button>
           ))}
-        </div>
-      </motion.div>
+        </motion.div>
+      ) : null}
 
       <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map((p, idx) => (

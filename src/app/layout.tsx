@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     template: "%s — George Barakat",
   },
   description:
-    "George Barakat — Toronto photographer. Portraits, events, travel & street. Editorial, Pixieset-level presentation with a sharper edge.",
+    "George Barakat — Toronto portrait, event, travel & street photographer. Inspired by classic Pixieset storytelling with custom motion and cursor.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
 };
 
