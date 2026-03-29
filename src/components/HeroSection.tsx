@@ -10,6 +10,8 @@ const ease = [0.22, 1, 0.36, 1] as const;
 const heroImageDesktop = "/images/hero.jpg";
 const heroImageMobile = "/images/hero-mobile.jpg";
 
+const heroQuality = 100;
+
 export function HeroSection() {
   return (
     <section className="relative min-h-dvh">
@@ -22,6 +24,7 @@ export function HeroSection() {
               fill
               className="object-cover object-[center_25%] md:hidden"
               priority
+              quality={heroQuality}
               sizes="100vw"
             />
             <Image
@@ -30,6 +33,7 @@ export function HeroSection() {
               fill
               className="hidden object-cover md:block"
               priority
+              quality={heroQuality}
               sizes="100vw"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/22 via-black/14 to-black/32" />
@@ -42,7 +46,7 @@ export function HeroSection() {
 
       <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-24 pt-[calc(var(--site-header-h)+2rem)] text-center text-white md:pt-[calc(var(--site-header-h)+2.5rem)]">
         <motion.h1
-          className="mt-5 font-[family-name:var(--font-display)] text-[clamp(2.75rem,10vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]"
+          className="mt-5 font-[family-name:var(--font-wordmark)] text-[clamp(1.85rem,6.5vw,3.35rem)] font-extralight uppercase leading-[1.08] tracking-[0.12em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)] min-[400px]:tracking-[0.16em] md:text-[clamp(2.15rem,5vw,3.75rem)] md:tracking-[0.18em]"
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease, delay: 0.06 }}
@@ -50,7 +54,7 @@ export function HeroSection() {
           George Barakat
         </motion.h1>
         <motion.p
-          className="mt-5 max-w-xl font-[family-name:var(--font-display)] text-xl font-normal italic leading-snug text-white/92 md:text-2xl"
+          className="mt-6 max-w-xl px-1 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase leading-relaxed tracking-[0.32em] text-white/88 sm:text-[11px] sm:tracking-[0.38em]"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease, delay: 0.14 }}
@@ -58,7 +62,7 @@ export function HeroSection() {
           Portrait, event, travel &amp; street photography
         </motion.p>
         <motion.p
-          className="mt-3 text-[11px] uppercase tracking-[0.28em] text-white/65"
+          className="mt-4 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.3em] text-white/58"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.22 }}
@@ -93,7 +97,7 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-[10px] uppercase tracking-[0.35em] text-white/50">
+      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.38em] text-white/50">
         Scroll
       </div>
     </section>
