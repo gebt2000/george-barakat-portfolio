@@ -7,19 +7,28 @@ import { Magnetic } from "@/components/Magnetic";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const heroImage = "/images/hero.jpg";
+const heroImageDesktop = "/images/hero.jpg";
+const heroImageMobile = "/images/hero-mobile.jpg";
 
 export function HeroSection() {
   return (
     <section className="relative min-h-dvh">
       <div className="absolute inset-0">
-        {heroImage ? (
+        {heroImageDesktop ? (
           <>
             <Image
-              src={heroImage}
+              src={heroImageMobile}
+              alt="Portrait in a long dress at sunrise with hot air balloons over a rocky valley"
+              fill
+              className="object-cover object-[center_25%] md:hidden"
+              priority
+              sizes="100vw"
+            />
+            <Image
+              src={heroImageDesktop}
               alt="Black and white photograph of two guests toasting with wine glasses"
               fill
-              className="object-cover"
+              className="hidden object-cover md:block"
               priority
               sizes="100vw"
             />
