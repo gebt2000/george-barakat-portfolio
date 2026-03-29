@@ -14,6 +14,13 @@ export function SiteFooter() {
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--foreground)]/55">
           <Link
+            href="/"
+            data-cursor="link"
+            className="transition hover:text-[var(--foreground)]"
+          >
+            Home
+          </Link>
+          <Link
             href="/portfolio"
             data-cursor="link"
             className="transition hover:text-[var(--foreground)]"
@@ -26,6 +33,13 @@ export function SiteFooter() {
             className="transition hover:text-[var(--foreground)]"
           >
             About
+          </Link>
+          <Link
+            href="/services"
+            data-cursor="link"
+            className="transition hover:text-[var(--foreground)]"
+          >
+            Services
           </Link>
           <Link
             href="/contact"

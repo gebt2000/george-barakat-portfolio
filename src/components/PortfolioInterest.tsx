@@ -21,6 +21,13 @@ export function PortfolioInterest() {
         >
           Read about me
         </Link>
+        <Link
+          href="/services"
+          data-cursor="link"
+          className="text-sm font-medium uppercase tracking-[0.2em] text-[var(--foreground)]/70 underline decoration-[var(--foreground)]/25 underline-offset-4 transition hover:text-[var(--foreground)]"
+        >
+          Check services
+        </Link>
       </div>
     </section>
   );
