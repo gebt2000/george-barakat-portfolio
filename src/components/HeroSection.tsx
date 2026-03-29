@@ -3,12 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { photos } from "@/content/photos";
 import { Magnetic } from "@/components/Magnetic";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const heroImage = photos[0]?.src;
+const heroImage = "/images/hero.jpg";
 
 export function HeroSection() {
   return (
@@ -18,7 +17,7 @@ export function HeroSection() {
           <>
             <Image
               src={heroImage}
-              alt=""
+              alt="Black and white photograph of two guests toasting with wine glasses"
               fill
               className="object-cover"
               priority
