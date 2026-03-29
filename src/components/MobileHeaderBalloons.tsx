@@ -18,11 +18,11 @@ function smoothstep(t: number) {
  */
 const BALLOONS = [
   {
-    src: "/images/balloons/b1.png",
+    src: "/images/balloons/b1.jpg",
     delay: 0,
     dur: 0.55,
     y: "48%",
-    scale: 0.92,
+    scale: 0.42,
     rtl: false,
     flip: 1,
   },
@@ -36,11 +36,11 @@ const BALLOONS = [
     flip: -1,
   },
   {
-    src: "/images/balloons/b3.jpg",
+    src: "/images/balloons/b3.png",
     delay: 0.28,
     dur: 0.62,
     y: "58%",
-    scale: 0.4,
+    scale: 0.95,
     rtl: false,
     flip: 1,
   },
