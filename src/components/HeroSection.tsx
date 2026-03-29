@@ -14,7 +14,7 @@ const heroQuality = 100;
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-dvh">
+    <section id="site-hero" className="relative min-h-dvh">
       <div className="absolute inset-0">
         {heroImageDesktop ? (
           <>

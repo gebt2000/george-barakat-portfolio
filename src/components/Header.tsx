@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { MobileHeaderBalloons } from "@/components/MobileHeaderBalloons";
 
 const LEFT_NAV = [
   { href: "/", label: "Home" },
@@ -60,6 +61,7 @@ function NavLink({
 export function Header(props: { className?: string }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [flyProgress, setFlyProgress] = useState(0);
   const pathname = usePathname();
   const isHome = pathname === "/";
   const overHero = isHome && !scrolled;
@@ -80,14 +82,31 @@ export function Header(props: { className?: string }) {
   useEffect(() => {
     if (!isHome) {
       setScrolled(true);
+      setFlyProgress(0);
       return;
     }
-    setScrolled(window.scrollY > SCROLL_SOLID_AT);
     const onScroll = () => {
       setScrolled(window.scrollY > SCROLL_SOLID_AT);
+      const hero = document.getElementById("site-hero");
+      if (!hero) {
+        setFlyProgress(0);
+        return;
+      }
+      const rect = hero.getBoundingClientRect();
+      const bottomDoc = window.scrollY + rect.bottom;
+      const vh = window.innerHeight;
+      const y = window.scrollY;
+      const start = bottomDoc - vh * 1.02;
+      const span = Math.max(240, vh * 0.52);
+      setFlyProgress(Math.min(1, Math.max(0, (y - start) / span)));
     };
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, [isHome]);
 
   return (
@@ -102,8 +121,12 @@ export function Header(props: { className?: string }) {
     >
       <div className="mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
         {/* Mobile top bar */}
-        <div className="relative flex min-h-[2.75rem] items-center justify-between md:hidden">
+        <div className="relative flex min-h-[2.75rem] items-center justify-between overflow-visible md:hidden">
           <span className="w-10 shrink-0" aria-hidden />
+          <MobileHeaderBalloons
+            flyProgress={flyProgress}
+            visible={isHome && !open}
+          />
           <Link
             href="/"
             data-cursor="link"
