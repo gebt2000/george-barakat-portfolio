@@ -10,7 +10,7 @@ const quotes = [
     names: "Rachel + Alex",
   },
   {
-    text: "We couldn't have asked for a better photographer—comfortable, understanding, and the photos are stunning. They perfectly capture the joy of our day.",
+    text: "We couldn't have asked for a better photographer: comfortable, understanding, and the photos are stunning. They perfectly capture the joy of our day.",
     names: "Caroline + Christopher",
   },
   {
@@ -18,7 +18,7 @@ const quotes = [
     names: "Aaron + Tabitha",
   },
   {
-    text: "Warm, professional, and genuinely invested in our story. The gallery feels like us—not a template.",
+    text: "Warm, professional, and genuinely invested in our story. The gallery feels like us, not a template.",
     names: "Lucas + Danielle",
   },
   {

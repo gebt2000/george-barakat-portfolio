@@ -35,7 +35,7 @@ export async function POST(req: Request) {
     const resend = new Resend(apiKey);
     const fullName = `${body.firstName} ${body.lastName}`.trim();
     const cat = body.category?.trim() || "General";
-    const subject = `New inquiry (${cat}) — ${fullName}`;
+    const subject = `New inquiry (${cat}): ${fullName}`;
 
     await resend.emails.send({
       from,

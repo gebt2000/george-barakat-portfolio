@@ -59,10 +59,10 @@ export function Gallery({ variant = "default" }: GalleryProps) {
                 My portfolio
               </h2>
               <p className="mt-3 text-xs font-mono tracking-[0.32em] text-[var(--foreground)]/45">
-                COLLECTION OF STORIES · SINCE 2018
+                COLLECTION OF STORIES, SINCE 2018
               </p>
               <p className="mt-6 text-sm leading-7 text-[var(--foreground)]/58">
-                My favourite frames are often unstaged and effortless—it&apos;s
+                My favourite frames are often unstaged and effortless. It&apos;s
                 the in-between moments where the real magic happens.
               </p>
             </>
@@ -75,7 +75,7 @@ export function Gallery({ variant = "default" }: GalleryProps) {
                 Selected works
               </h2>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-[var(--foreground)]/55">
-                A curated edit—hover for depth, click to view full frame. Filter
+                A curated edit. Hover for depth, click to view full frame. Filter
                 by the kind of story you want to see.
               </p>
             </>
@@ -200,7 +200,7 @@ export function Gallery({ variant = "default" }: GalleryProps) {
                     </p>
                     <p className="mt-1 text-[11px] font-normal uppercase tracking-[0.2em] text-[var(--foreground)]/45">
                       {p.subtitle ?? `${p.category} photography`}
-                      {p.year ? ` · ${p.year}` : ""}
+                      {p.year ? `, ${p.year}` : ""}
                     </p>
                   </div>
                   <span className="shrink-0 rounded-full border border-[var(--foreground)]/10 bg-[var(--background)]/85 px-2 py-1 text-[10px] font-mono uppercase tracking-[0.16em] text-[var(--foreground)]/50">

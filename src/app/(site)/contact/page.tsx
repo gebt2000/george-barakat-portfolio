@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/ContactForm";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Contact George Barakat — Toronto photographer.",
+  description: "Contact George Barakat, Toronto photographer.",
 };
 
 export default function ContactPage() {
@@ -31,7 +31,7 @@ export default function ContactPage() {
         >
           View portfolio
         </Link>
-        <span className="mx-2 text-[var(--foreground)]/25">·</span>
+        <span className="mx-2 text-[var(--foreground)]/25">,</span>
         <Link
           href="/about"
           data-cursor="link"

@@ -17,7 +17,7 @@ export function GeorgeBarakatWordmark({
     <div className={cn("relative", className)}>
       {isHero ? (
         <p className="mb-4 max-w-md text-[11px] font-normal uppercase leading-relaxed tracking-[0.38em] text-[var(--foreground)]/50">
-          Portraits · Events · Travel · Street
+          Portraits, Events, Travel, Street
         </p>
       ) : null}
 

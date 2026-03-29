@@ -9,7 +9,7 @@ export function SiteFooter() {
             George Barakat
           </p>
           <p className="mt-1 text-sm text-[var(--foreground)]/50">
-            © {new Date().getFullYear()} · Toronto, Ontario · Available for travel
+            © {new Date().getFullYear()}, Toronto, Ontario. Available for travel.
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--foreground)]/55">

@@ -58,8 +58,8 @@ export function Lightbox(props: {
               </p>
               <p className="truncate text-xs text-white/55">
                 {props.photo.subtitle ?? `${props.photo.category} photography`}
-                {props.photo.year ? ` · ${props.photo.year}` : ""}
-                {props.photo.location ? ` · ${props.photo.location}` : ""}
+                {props.photo.year ? `, ${props.photo.year}` : ""}
+                {props.photo.location ? `, ${props.photo.location}` : ""}
               </p>
             </div>
             <button

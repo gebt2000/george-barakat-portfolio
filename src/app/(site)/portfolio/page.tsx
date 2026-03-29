@@ -5,7 +5,7 @@ import { PortfolioInterest } from "@/components/PortfolioInterest";
 export const metadata: Metadata = {
   title: "Portfolio",
   description:
-    "Portfolio — portraits, events, travel, and street photography by George Barakat, Toronto.",
+    "Portfolio: portraits, events, travel, and street photography by George Barakat, Toronto.",
 };
 
 export default function PortfolioPage() {

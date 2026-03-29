@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Photography services — George Barakat, Toronto.",
+  description: "Photography services by George Barakat, Toronto.",
 };
 
 export default function ServicesPage() {
@@ -16,15 +16,15 @@ export default function ServicesPage() {
         What I offer
       </h1>
       <p className="mt-6 text-sm leading-7 text-[var(--foreground)]/58">
-        Portraits, events, travel, and street commissions—plus editorial and
+        Portraits, events, travel, and street commissions, plus editorial and
         brand work. Replace this copy with your packages, starting rates, and
         process.
       </p>
       <ul className="mt-10 space-y-3 text-left text-sm text-[var(--foreground)]/65">
-        <li>· Portrait sessions</li>
-        <li>· Weddings &amp; celebrations</li>
-        <li>· Corporate &amp; brand imagery</li>
-        <li>· Travel &amp; documentary projects</li>
+        <li>Portrait sessions</li>
+        <li>Weddings &amp; celebrations</li>
+        <li>Corporate &amp; brand imagery</li>
+        <li>Travel &amp; documentary projects</li>
       </ul>
       <Link
         href="/contact"

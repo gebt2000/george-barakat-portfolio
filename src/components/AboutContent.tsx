@@ -38,7 +38,7 @@ export function AboutContent() {
             <p>
               I&apos;m a photographer based in Toronto, Ontario, working across
               portraits, events, travel, and street. I care most about the quiet,
-              honest frames—the moments when you forget the camera is there.
+              honest frames, the moments when you forget the camera is there.
             </p>
             <p>
               Over the years I&apos;ve been lucky to document celebrations,
@@ -51,11 +51,11 @@ export function AboutContent() {
           <blockquote className="mt-12 border-l-2 border-[var(--foreground)]/15 pl-6">
             <p className="font-[family-name:var(--font-display)] text-lg italic leading-relaxed text-[var(--foreground)]/75 md:text-xl">
               &ldquo;How wonderful to be who I am, made out of earth and water,
-              my own thoughts, my own fingerprints—all that glorious, temporary
+              my own thoughts, my own fingerprints, all that glorious, temporary
               stuff.&rdquo;
             </p>
             <footer className="mt-4 text-xs font-mono uppercase tracking-[0.2em] text-[var(--foreground)]/45">
-              — Mary Oliver
+              Mary Oliver
             </footer>
           </blockquote>
 

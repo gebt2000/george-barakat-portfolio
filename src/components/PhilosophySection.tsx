@@ -22,7 +22,7 @@ export function PhilosophySection() {
         Lasting memories through honest, soulful imagery
       </h2>
       <p className="mt-8 text-base leading-8 text-[var(--foreground)]/62">
-        Love and life show up in countless ways—the joy of new chapters, the
+        Love and life show up in countless ways: the joy of new chapters, the
         strength of commitment, friendship, and quiet support. I&apos;m George
         Barakat, and I&apos;m here to document your story: the glance, the
         handhold, the tearful joy when everything finally feels real.

@@ -97,7 +97,8 @@ export function Header(props: { className?: string }) {
       const vh = window.innerHeight;
       const y = window.scrollY;
       const start = bottomDoc - vh * 1.02;
-      const span = Math.max(240, vh * 0.52);
+      // Larger span = same scroll moves flyProgress less → slower balloon drift
+      const span = Math.max(520, vh * 1.25);
       setFlyProgress(Math.min(1, Math.max(0, (y - start) / span)));
     };
     onScroll();

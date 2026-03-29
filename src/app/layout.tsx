@@ -44,11 +44,11 @@ const wordmarkSans = Montserrat({
 
 export const metadata: Metadata = {
   title: {
-    default: "George Barakat — Photography",
-    template: "%s — George Barakat",
+    default: "George Barakat, Photography",
+    template: "%s, George Barakat",
   },
   description:
-    "George Barakat — Toronto portrait, event, travel & street photographer. Inspired by classic Pixieset storytelling with custom motion and cursor.",
+    "George Barakat, Toronto portrait, event, travel & street photographer. Inspired by classic Pixieset storytelling with custom motion and cursor.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
 };
 
