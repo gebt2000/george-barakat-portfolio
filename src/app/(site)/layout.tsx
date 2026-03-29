@@ -1,4 +1,5 @@
 import { Header } from "@/components/Header";
+import { MainWithOffset } from "@/components/MainWithOffset";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export default function SiteLayout({
@@ -9,7 +10,7 @@ export default function SiteLayout({
   return (
     <div className="flex min-h-dvh flex-col">
       <Header />
-      <main className="flex-1">{children}</main>
+      <MainWithOffset>{children}</MainWithOffset>
       <SiteFooter />
     </div>
   );

@@ -17,14 +17,18 @@ const RIGHT_NAV = [
   { href: "/contact", label: "Contact" },
 ] as const;
 
+const SCROLL_SOLID_AT = 48;
+
 function NavLink({
   href,
   label,
   onNavigate,
+  overHero,
 }: {
   href: string;
   label: string;
   onNavigate?: () => void;
+  overHero: boolean;
 }) {
   const pathname = usePathname();
   const active =
@@ -38,8 +42,14 @@ function NavLink({
       data-cursor="link"
       onClick={onNavigate}
       className={cn(
-        "text-[11px] font-normal uppercase tracking-[0.28em] text-[var(--foreground)]/55 transition hover:text-[var(--foreground)]",
-        active && "text-[var(--foreground)]",
+        "text-[11px] font-normal uppercase tracking-[0.28em] transition",
+        overHero
+          ? active
+            ? "text-white"
+            : "text-white/65 hover:text-white/95"
+          : active
+            ? "text-[var(--foreground)]"
+            : "text-[var(--foreground)]/55 hover:text-[var(--foreground)]",
       )}
     >
       {label}
@@ -49,7 +59,10 @@ function NavLink({
 
 export function Header(props: { className?: string }) {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const isHome = pathname === "/";
+  const overHero = isHome && !scrolled;
 
   useEffect(() => {
     setOpen(false);
@@ -64,14 +77,30 @@ export function Header(props: { className?: string }) {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!isHome) {
+      setScrolled(true);
+      return;
+    }
+    setScrolled(window.scrollY > SCROLL_SOLID_AT);
+    const onScroll = () => {
+      setScrolled(window.scrollY > SCROLL_SOLID_AT);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isHome]);
+
   return (
     <header
       className={cn(
-        "sticky top-0 z-[60] border-b border-[var(--foreground)]/10 bg-[color-mix(in_oklab,var(--background)_92%,#fff_8%)]/95 backdrop-blur-md",
+        "fixed top-0 left-0 right-0 z-[60] transition-[background-color,border-color,backdrop-filter] duration-300",
+        overHero
+          ? "border-b border-white/15 bg-transparent"
+          : "border-b border-[var(--foreground)]/10 bg-[color-mix(in_oklab,var(--background)_94%,#fff_6%)]/95 backdrop-blur-md",
         props.className,
       )}
     >
-      <div className="relative mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
+      <div className="mx-auto max-w-6xl px-5 py-5 md:px-8 md:py-6">
         {/* Mobile top bar */}
         <div className="relative flex min-h-[2.75rem] items-center justify-between md:hidden">
           <span className="w-10 shrink-0" aria-hidden />
@@ -84,7 +113,12 @@ export function Header(props: { className?: string }) {
             )}
             onClick={() => setOpen(false)}
           >
-            <span className="block font-[family-name:var(--font-display)] text-lg font-normal tracking-[-0.02em] text-[var(--foreground)]">
+            <span
+              className={cn(
+                "block font-[family-name:var(--font-display)] text-lg font-normal tracking-[-0.02em]",
+                overHero ? "text-white drop-shadow-md" : "text-[var(--foreground)]",
+              )}
+            >
               George Barakat
             </span>
           </Link>
@@ -93,27 +127,49 @@ export function Header(props: { className?: string }) {
             aria-expanded={open}
             aria-label={open ? "Close menu" : "Open menu"}
             data-cursor="link"
-            className="relative z-[60] flex size-10 items-center justify-center rounded-sm border border-[var(--foreground)]/10 text-[var(--foreground)]/70 transition hover:bg-[var(--foreground)]/5"
+            className={cn(
+              "relative z-[62] flex size-10 items-center justify-center rounded-sm border transition",
+              overHero
+                ? "border-white/25 text-white hover:bg-white/10"
+                : "border-[var(--foreground)]/10 text-[var(--foreground)]/70 hover:bg-[var(--foreground)]/5",
+            )}
             onClick={() => setOpen((o) => !o)}
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
 
-        {/* Desktop: Morgan-style split nav + centered name */}
+        {/* Desktop */}
         <div className="hidden items-center md:grid md:grid-cols-3 md:gap-6">
           <nav className="flex flex-wrap items-center justify-start gap-x-8 gap-y-2">
             {LEFT_NAV.map((item) => (
-              <NavLink key={item.href} href={item.href} label={item.label} />
+              <NavLink
+                key={item.href}
+                href={item.href}
+                label={item.label}
+                overHero={overHero}
+              />
             ))}
           </nav>
 
           <div className="flex justify-center text-center">
             <Link href="/" data-cursor="link" className="group block">
-              <span className="block font-[family-name:var(--font-display)] text-[1.35rem] font-normal tracking-[-0.02em] text-[var(--foreground)] transition group-hover:opacity-80 md:text-[1.5rem]">
+              <span
+                className={cn(
+                  "block font-[family-name:var(--font-display)] text-[1.35rem] font-normal tracking-[-0.02em] transition md:text-[1.5rem]",
+                  overHero
+                    ? "text-white drop-shadow-md group-hover:text-white/90"
+                    : "text-[var(--foreground)] group-hover:opacity-80",
+                )}
+              >
                 George Barakat
               </span>
-              <span className="mt-1 block text-[10px] font-normal uppercase tracking-[0.32em] text-[var(--foreground)]/45">
+              <span
+                className={cn(
+                  "mt-1 block text-[10px] font-normal uppercase tracking-[0.32em]",
+                  overHero ? "text-white/65" : "text-[var(--foreground)]/45",
+                )}
+              >
                 Portrait &amp; event photography
               </span>
             </Link>
@@ -121,15 +177,20 @@ export function Header(props: { className?: string }) {
 
           <nav className="flex flex-wrap items-center justify-end gap-x-8 gap-y-2">
             {RIGHT_NAV.map((item) => (
-              <NavLink key={item.href} href={item.href} label={item.label} />
+              <NavLink
+                key={item.href}
+                href={item.href}
+                label={item.label}
+                overHero={overHero}
+              />
             ))}
           </nav>
         </div>
 
-        {/* Mobile full-screen menu (Morgan-style overlay) */}
+        {/* Mobile overlay */}
         <div
           className={cn(
-            "fixed inset-0 z-[55] flex flex-col bg-[var(--background)] pt-24 transition-opacity duration-300 md:hidden",
+            "fixed inset-0 z-[61] flex flex-col bg-[var(--background)] pt-24 transition-opacity duration-300 md:hidden",
             open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
           )}
           aria-hidden={!open}

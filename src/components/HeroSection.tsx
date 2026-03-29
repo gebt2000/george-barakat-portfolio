@@ -32,7 +32,7 @@ export function HeroSection() {
         )}
       </div>
 
-      <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-24 pt-28 text-center text-white">
+      <div className="relative z-10 flex min-h-dvh flex-col items-center justify-center px-6 pb-24 pt-[calc(var(--site-header-h)+2rem)] text-center text-white md:pt-[calc(var(--site-header-h)+2.5rem)]">
         <motion.h1
           className="mt-5 font-[family-name:var(--font-display)] text-[clamp(2.75rem,10vw,5.5rem)] font-normal leading-[0.95] tracking-[-0.03em] text-white drop-shadow-[0_2px_24px_rgba(0,0,0,0.35)]"
           initial={{ opacity: 0, y: 22 }}

@@ -2,6 +2,7 @@
 
 /* Morgan-demo inspired: warm paper, soft contrast, romantic editorial */
 :root {
+  --site-header-h: 5.75rem;
   --background: #faf7f3;
   --foreground: #2f2a26;
   --muted: rgba(47, 42, 38, 0.58);
