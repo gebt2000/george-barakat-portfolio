@@ -23,8 +23,8 @@ export function HeroSection() {
               priority
               sizes="100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/35 to-black/55" />
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.25)_100%)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/22 via-black/14 to-black/32" />
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.12)_100%)]" />
           </>
         ) : (
           <div className="h-full w-full bg-[#3d3835]" />
