@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { Magnetic } from "@/components/Magnetic";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -13,6 +14,8 @@ const heroImageMobile = "/images/hero-mobile.jpg";
 const heroQuality = 100;
 
 export function HeroSection() {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section id="site-hero" className="relative min-h-dvh">
       <div className="absolute inset-0">
@@ -105,8 +108,31 @@ export function HeroSection() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.38em] text-white/70 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
-        Scroll
+      <div className="absolute bottom-7 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2.5">
+        <span className="font-[family-name:var(--font-wordmark)] text-[10px] font-extralight uppercase tracking-[0.38em] text-white/72 [text-shadow:0_1px_10px_rgba(0,0,0,0.6)]">
+          Scroll
+        </span>
+        <motion.div
+          className="flex flex-col items-center text-white/65"
+          animate={
+            reduceMotion
+              ? {}
+              : { y: [0, 6, 0], opacity: [0.5, 0.92, 0.5] }
+          }
+          transition={{
+            duration: 2.25,
+            repeat: Infinity,
+            ease: [0.42, 0, 0.58, 1],
+          }}
+          aria-hidden
+        >
+          <span className="h-6 w-px rounded-full bg-gradient-to-b from-white/85 via-white/35 to-transparent" />
+          <ChevronDown
+            className="-mt-0.5 size-[18px]"
+            strokeWidth={1.35}
+            aria-hidden
+          />
+        </motion.div>
       </div>
     </section>
   );
